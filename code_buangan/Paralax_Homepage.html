@@ -1,1 +1,326 @@
+<script src="https://cdn.tailwindcss.com"></script>
 
+    <style>
+
+        /* INCREASED HEIGHT: 
+           Changed from 300vh to 500vh. 
+           This makes the scroll distance longer, so the transition happens 
+           gradually over a longer scroll period instead of "fast".
+        */
+        .parallax-container {
+            position: relative;
+            width: 100%;
+            height: 500vh; 
+            background: linear-gradient(180deg, #0E4C63 0%, #082f3d 100%);
+        }
+
+        .sticky-viewport {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Background decoration circles */
+        .bg-decor {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
+            transition: all 1.5s ease;
+        }
+        
+        .bg-decor-1 { width: 400px; height: 400px; background: #38A1A4; top: -10%; left: -5%; }
+        .bg-decor-2 { width: 500px; height: 500px; background: #B8D84E; bottom: -10%; right: -10%; }
+
+        .content-grid {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        /* TEXT TRANSITIONS */
+        .text-slide-container {
+            position: relative;
+            height: 400px; /* Fixed height to prevent layout jumps */
+            display: flex;
+            align-items: center;
+        }
+
+        .text-slide {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%) translateY(20px);
+            width: 100%;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .text-slide.active {
+            opacity: 1;
+            transform: translateY(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .text-slide h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-slide .highlight {
+            color: #B8D84E;
+            font-style: italic;
+        }
+
+        .text-slide p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        /* IMAGE TRANSITIONS */
+        .image-slide-container {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .image-card {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            max-width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            /* Removed background, border, and shadow */
+        }
+
+        .image-card.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Progress Bar removed */
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .text-slide-container {
+                height: 250px;
+                order: 1;
+            }
+
+            .image-slide-container {
+                height: 300px;
+                order: 2;
+            }
+            
+            .text-slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .text-slide h1 {
+                font-size: 2rem;
+            }
+
+            .image-card {
+                max-width: 100%;
+            }
+
+            /* .progress-indicator styles removed */
+        }
+    </style>
+    <div class="parallax-container">
+        <div class="sticky-viewport">
+            
+            <div class="bg-decor bg-decor-1"></div>
+            <div class="bg-decor bg-decor-2"></div>
+
+            <div class="content-grid">
+                
+                <div class="text-slide-container">
+                    
+                    
+                    <div class="text-slide active" data-index="0">
+                        <h1>
+                            Hingga <span class="highlight">40% dana</span><br>
+                            masjid terserap untuk<br>
+                            tagihan listrik.
+                        </h1>
+                        <p>
+                            Pemanfaatkan energi surya, mengubah beban menjadi penghematan nyata—dana masjid bisa dialihkan menjadi kebaikan yang lebih luas bagi jamaah.
+                        </p>
+                    </div>
+
+                    
+                    <div class="text-slide" data-index="1">
+                        <h1>
+                            Jadikan <span class="highlight">wakaf Anda</span><br>
+                            manfaat yang terus<br>
+                            hidup.
+                        </h1>
+                        <p>
+                            Panel surya dari wakaf anda bekerja setiap hari, mampu membebaskan masjid dari kecemasan biaya operasional hingga 25 tahun ke depan.
+                        </p>
+                    </div>
+
+                    
+                    <div class="text-slide" data-index="2">
+                        <h1>
+                            <span class="highlight">Pantau jejak</span><br>
+                            kebaikan Anda secara<br>
+                            real-time.
+                        </h1>
+                        <p>
+                            Melalui platform digital, pantau jejak kebaikan Anda secara real-time mulai dari progres pemasangan, energi yang dihasilkan, hingga setiap Rupiah yang berhasil dihemat.
+                        </p>
+                    </div>
+                </div>
+
+                
+                <div class="image-slide-container">
+                    
+                    
+                    <div class="image-card active" data-index="0">
+                        <img src="/web/content/3189" alt="Energy Dashboard Visualization" loading="lazy">
+                    </div>
+
+                    
+                    <div class="image-card" data-index="1">
+                        <img src="/web/content/3192" alt="Solar Panel Installation" loading="lazy">
+                    </div>
+
+                    
+                    <div class="image-card" data-index="2">
+                        <img src="/web/content/3193" alt="Mobile Monitoring App" loading="lazy">
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    
+    <div style="height: 50vh; background-color: #082f3d; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.3);">
+        <p>Scroll Up</p>
+    </div>
+
+    <script>
+        const container = document.querySelector('.parallax-container');
+        const textSlides = document.querySelectorAll('.text-slide');
+        const imageCards = document.querySelectorAll('.image-card');
+        const bgDecor1 = document.querySelector('.bg-decor-1');
+        const bgDecor2 = document.querySelector('.bg-decor-2');
+
+        let currentSlide = 0;
+
+        function updateActiveSlide(index) {
+            // Optimization: Don't re-apply classes if index hasn't changed
+            if(currentSlide === index && index !== 0) return; // Allow 0 to force init
+            currentSlide = index;
+
+            // Update Text
+            textSlides.forEach((slide, i) => {
+                if(i === index) slide.classList.add('active');
+                else slide.classList.remove('active');
+            });
+
+            // Update Images
+            imageCards.forEach((card, i) => {
+                if(i === index) card.classList.add('active');
+                else card.classList.remove('active');
+            });
+
+            // Subtle Background movement based on slide
+            if(index === 0) {
+                bgDecor1.style.transform = 'translate(0, 0)';
+                bgDecor2.style.transform = 'translate(0, 0)';
+            } else if(index === 1) {
+                bgDecor1.style.transform = 'translate(-50px, 50px)';
+                bgDecor2.style.transform = 'translate(50px, -50px)';
+            } else {
+                bgDecor1.style.transform = 'translate(20px, 100px)';
+                bgDecor2.style.transform = 'translate(-20px, -100px)';
+            }
+        }
+
+        function handleScroll() {
+            const containerRect = container.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const containerHeight = container.offsetHeight;
+            
+            // Calculate how far we've scrolled into the container
+            // We use -containerRect.top because as we scroll down, top becomes negative
+            const scrolledDistance = -containerRect.top;
+            
+            // Total scrollable distance (Container Height - 1 Viewport (because it's sticky))
+            const scrollableDistance = containerHeight - viewportHeight;
+
+            // Calculate percentage (0 to 1)
+            let progress = scrolledDistance / scrollableDistance;
+
+            // Clamp progress between 0 and 1
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Determine slide based on progress
+            // 0% - 25% -> Slide 1
+            // 25% - 60% -> Slide 2
+            // 60% - 100% -> Slide 3
+            // Note: I adjusted thresholds slightly to make the middle section feel longer
+            
+            let targetSlide = 0;
+            
+            if (progress < 0.25) {
+                targetSlide = 0;
+            } else if (progress >= 0.25 && progress < 0.65) {
+                targetSlide = 1;
+            } else {
+                targetSlide = 2;
+            }
+
+            // Only update if changed
+            if (targetSlide !== currentSlide) {
+                updateActiveSlide(targetSlide);
+            }
+        }
+
+        // Initialize
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        // Initial call to set state
+        handleScroll();
+    </script>
